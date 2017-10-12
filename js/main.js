@@ -31,6 +31,8 @@ Comment out alternate lines to see the different positioning in effect
 var positionData = getCartesianPositions(numberOfPoints, radiusOfSphere);
 // var positionData = getSphericalPositions(numberOfPoints, radiusOfSphere);
 // var positionData = getSphericalPositionsWithBias(numberOfPoints,radiusOfSphere);
+// var positionData = getSphericalPositionsWithBias(numberOfPoints,radiusOfSphere, 1);
+// var positionData = getSphericalPositionsWithBias(numberOfPoints,radiusOfSphere, 0.5);
 // var positionData = getUniformPositions(numberOfPoints, radiusOfSphere);
 
 // Convert out positionData into a float32Array for handing to the buffer geometry
@@ -121,7 +123,7 @@ function getSphericalPositions(howMany, radius) {
 	return vectors;
 }
 
-function getSphericalPositionsWithBias(howMany, radius) {
+function getSphericalPositionsWithBias(howMany, radius, bias) {
 	var vectors = [];
 
 	var spherical = new THREE.Spherical();
@@ -129,7 +131,7 @@ function getSphericalPositionsWithBias(howMany, radius) {
 	spherical.radius = radius;
 
 	for (var i = 0; i < howMany; i += 1) {
-		spherical.phi = getRndBias(0, Math.PI, Math.PI / 2, 0.5); // Phi is between 0 - PI
+		spherical.phi = getRndBias(0, Math.PI, Math.PI / 2, bias); // Phi is between 0 - PI
 		spherical.theta = THREE.Math.randFloat(0, Math.PI * 2); // Theta is between 0 - 2 PI
 
 		var vec3 = new THREE.Vector3().setFromSpherical(spherical);
